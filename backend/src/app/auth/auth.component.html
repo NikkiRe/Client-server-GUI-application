@@ -1,0 +1,22 @@
+<div class="auth-container">
+    <p-card header="{{ isLogin ? 'Авторизация' : 'Регистрация' }}">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="username">Имя пользователя</label>
+                <br>
+                <input pInputText id="username" [(ngModel)]="username" placeholder="Введите имя" />
+            </div>
+            <div class="p-field">
+                <label for="password">Пароль</label>
+                <br>
+                <input pInputText id="password" type="password" [(ngModel)]="password" placeholder="Введите пароль" />
+            </div>
+            <p-button label="{{ isLogin ? 'Войти' : 'Зарегистрироваться' }}" (click)="authenticate()"></p-button>
+            <p class="switch-mode">
+                {{ isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?' }}
+                <a (click)="toggleMode()">{{ isLogin ? 'Зарегистрироваться' : 'Войти' }}</a>
+            </p>
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </div>
+    </p-card>
+</div>

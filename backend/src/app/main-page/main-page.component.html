@@ -1,0 +1,59 @@
+<div class="main-container">
+    <div class="controller-container">
+        <p-card class="controller-card" header="Управление">
+            <div class="p-field">
+                <label for="x">X: {{xValue}}</label>
+                <p-slider id="x" [(ngModel)]="xValue" [min]="-5" [max]="3" [step]="0.1"></p-slider>
+            </div>
+            <div class="p-field">
+                <label for="y">Y:</label>
+                <br>
+                <input id="y" type="number" [(ngModel)]="yValue" min="-5" max="3" />
+            </div>
+            <div class="p-field">
+                <label for="r">R: {{rValue}}</label>
+                <p-slider id="r" [(ngModel)]="rValue" [min]="-5" [max]="3" [step]="0.1" (onChange)="drawOnCanvas()"></p-slider>
+            </div>
+            <p-button label="Отправить точку" (click)="sendPointButton()"></p-button>
+            <br>
+            <p-button label="Очистить историю" (click)="clearHistory()"></p-button>
+            <br>
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <br>
+            <p-button label="Удалить Аккаунт" (click)="deleteAccount()"></p-button>
+            <br>
+            <p-button label="Покинуть Аккаунт" (click)="logOut()"></p-button>
+        </p-card>
+        <p-card class="controller-card">
+            <div className="canvas-container">
+                <canvas #myCanvas width="500" height="500"></canvas>
+            </div>
+        </p-card>
+    </div>
+    <p-card class="table-container" header="Данные точек">
+        <td>
+            <p-table [value]="data" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>R</th>
+                        <th>Время запроса</th>
+                        <th>Время обработки</th>
+                        <th>Результат</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-point>
+                    <tr>
+                        <td>{{ point.x }}</td>
+                        <td>{{ point.y }}</td>
+                        <td>{{ point.radius }}</td>
+                        <td>{{ point.requestTime }}</td>
+                        <td>{{ point.executionTime }}</td>
+                        <td>{{ point.result ? 'Попадание' : 'Промах' }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </td>
+    </p-card>
+</div>
